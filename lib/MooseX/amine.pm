@@ -1,6 +1,6 @@
 package MooseX::amine;
 BEGIN {
-  $MooseX::amine::VERSION = '0.1';
+  $MooseX::amine::VERSION = '0.2';
 }
 BEGIN {
   $MooseX::amine::AUTHORITY = 'cpan:GENEHACK';
@@ -367,6 +367,7 @@ sub _load_module_from_path {
   return $module;
 }
 
+
 #__PACKAGE__->meta->make_immutable;
 1;
 
@@ -380,7 +381,7 @@ MooseX::amine - Examine Yr Moose
 
 =head1 VERSION
 
-version 0.1
+version 0.2
 
 =head1 SYNOPSIS
 
@@ -451,6 +452,10 @@ A sample method entry:
 The C<code> key will contain the actual code from the method, extracted with
 PPI. Depending on where the method code actually lives, this key may or may
 not be present.
+
+=head1 CREDITS
+
+Semi-inspired by L<MooseX::Documenter>.
 
 =head1 AUTHOR
 

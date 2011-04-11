@@ -125,7 +125,7 @@ t/lib/Test/Inheritance/ObjectWithRole.pm
 t/lib/Test/Inheritance/ObjectWithRoleWithBaseRole.pm
 t/lib/Test/Override/Base.pm
 t/lib/Test/Override/Object.pm
-t/lib/Test/Override/ObjectwithRole.pm
+t/lib/Test/Override/ObjectWithRole.pm
 t/release-eol.t
 t/release-kwalitee.t
 t/release-pod-coverage.t

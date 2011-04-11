@@ -1,7 +1,8 @@
 #! /opt/perl/bin/perl
 
-# ABSTRACT: Dancer-powered Moose examinations (interactive)
+# ABSTRACT: An interactive web-based Dancer-powered inspection tool for Moose-based code.
 # PODNAME: mexi
+
 
 use Dancer;
 use File::Find::Rule;
@@ -102,11 +103,25 @@ __END__
 
 =head1 NAME
 
-mexi - Dancer-powered Moose examinations (interactive)
+mexi - An interactive web-based Dancer-powered inspection tool for Moose-based code.
 
 =head1 VERSION
 
-version 0.1
+version 0.2
+
+=head1 SYNOPSIS
+
+    # cd into a directory that has a Moose-based distribution
+    mexi
+    # can give a specific port with '--port xxxx' -- default is 3000
+
+    # browse to http://localhost:3000 and check out your code
+
+=head1 DESCRIPTION
+
+Ever had the problem of needing to get up to speed on a large Moose-based hunk
+of code? Feel like you're lost in a twisty little maze of attributes, methods,
+roles, and classes? Worried about grues? Maybe C<mexi> can help.
 
 =head1 AUTHOR
 

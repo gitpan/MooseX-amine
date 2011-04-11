@@ -1,6 +1,30 @@
 Revision History for MooseX-amine
 =================================
 
+0.2
+---
+
+commit 7ff149ef12c4e8bc7d6050a5c1beef37488faa25
+Merge: 821ee61 a1fd21e
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Sun Apr 10 23:33:26 2011 -0400
+
+    Merge branch 'master' of github.com:genehack/moosex-amine
+
+commit a1fd21e7fa58fc9d594b633c43d3a2aaff5ee1e5
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Sun Apr 10 23:33:15 2011 -0400
+
+    Update documentation
+
+commit 821ee61b7536701bd6564a0b865e821f87a90212
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Sun Apr 10 23:32:32 2011 -0400
+
+    Yay case-insensitive file systems
+    
+    and by 'yay' I mean 'please die in a fire already.'
+
 ===================================
 End of changes in the last 365 days
 ===================================

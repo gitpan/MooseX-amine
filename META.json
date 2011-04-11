@@ -62,7 +62,7 @@
          "web" : "http://github.com/genehack/moosex-amine"
       }
    },
-   "version" : "0.1",
+   "version" : "0.2",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

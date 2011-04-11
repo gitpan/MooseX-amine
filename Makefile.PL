@@ -25,8 +25,8 @@ my %WriteMakefileArgs = (
   },
   'DISTNAME' => 'MooseX-amine',
   'EXE_FILES' => [
-    'bin/mex',
-    'bin/mexi'
+    'bin/mexi',
+    'bin/mex'
   ],
   'LICENSE' => 'perl',
   'NAME' => 'MooseX::amine',
@@ -47,7 +47,7 @@ my %WriteMakefileArgs = (
     'Try::Tiny' => '0',
     'autodie' => '0'
   },
-  'VERSION' => '0.1',
+  'VERSION' => '0.2',
   'test' => {
     'TESTS' => 't/*.t'
   }

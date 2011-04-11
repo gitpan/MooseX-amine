@@ -1,7 +1,8 @@
 #! /opt/perl/bin/perl
 
-# ABSTRACT: Moose examinations (console)
+# ABSTRACT: A console-based inspector for Moose classes
 # PODNAME: mex
+
 
 use List::Util qw/ max /;
 use Modern::Perl;
@@ -63,11 +64,26 @@ __END__
 
 =head1 NAME
 
-mex - Moose examinations (console)
+mex - A console-based inspector for Moose classes
 
 =head1 VERSION
 
-version 0.1
+version 0.2
+
+=head1 SYNOPSIS
+
+    mex MyMooseModule
+    # install IO::Page for a nicer output experience...
+
+=head1 DESCRIPTION
+
+Ever had the problem of needing to get up to speed on a large Moose-based hunk
+of code? Feel like you're lost in a twisty little maze of attributes, methods,
+roles, and classes? Worried about grues? Maybe C<mex> can help.
+
+=head1 SEE ALSO
+
+mexi(1)
 
 =head1 AUTHOR
 

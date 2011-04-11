@@ -2,7 +2,7 @@ NAME
     MooseX::amine - Examine Yr Moose
 
 VERSION
-    version 0.1
+    version 0.2
 
 SYNOPSIS
         my $mex  = MooseX::amine->new( 'MooseX::amine' );
@@ -70,6 +70,9 @@ METHODS
     The "code" key will contain the actual code from the method, extracted
     with PPI. Depending on where the method code actually lives, this key
     may or may not be present.
+
+CREDITS
+    Semi-inspired by MooseX::Documenter.
 
 AUTHOR
     John SJ Anderson <genehack@genehack.org>
