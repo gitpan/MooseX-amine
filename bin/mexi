@@ -1,0 +1,123 @@
+#! /opt/perl/bin/perl
+
+# ABSTRACT: Dancer-powered Moose examinations (interactive)
+# PODNAME: mexi
+
+use Dancer;
+use File::Find::Rule;
+use File::ShareDir qw/ dist_dir /;
+use Hash::Merge qw/ merge /;
+use Modern::Perl;
+use MooseX::amine;
+use Template;
+use Try::Tiny;
+
+my $dir    = dist_dir('MooseX-amine');
+my $public = "$dir/public";
+my $views  = "$dir/views";
+
+set access_log   => 1;
+set appdir       => $dir;
+set appname      => 'MooseX::amine';
+set charset      => "UTF-8";
+set log          => 'core';
+set logger       => 'console';
+set public       => $public;
+set show_errors  => 1 ;
+set template     => "template_toolkit";
+set views        => $views;
+set warnings     => 1;
+
+layout 'main';
+
+my %standard_mooosex_amine_args = (
+  include_private_attributes => 1 ,
+  include_private_methods    => 1 ,
+);
+
+get '/_list' => sub {
+  my @files = File::Find::Rule->file()->name('*.pm')->in('./');
+
+  my %tree;
+  foreach my $file ( @files  ) {
+    my @parts = split '/' , $file;
+    my $hash = { pop @parts => $file };
+    while ( my $part = pop @parts ) {
+      my $new_hash = { $part => $hash };
+      $hash = $new_hash;
+    }
+    %tree = %{ merge( $hash , \%tree )  };
+  }
+
+  template 'list' => { files => \@files  , tree => \%tree };
+};
+
+get '/_show/name/*' => sub {
+  my( $name ) = splat;
+
+  try {
+    my $mex = MooseX::amine->new({
+      module => $name ,
+      %standard_mooosex_amine_args ,
+    });
+    template 'show' => {
+      mex  => $mex->examine ,
+      name => $name
+    };
+  }
+  catch { debug $name };
+
+};
+
+get qr{^/_show/(.*)} => sub {
+  my( $file ) = splat;
+
+  try {
+    my $mex = MooseX::amine->new({
+      path => $file ,
+      %standard_mooosex_amine_args ,
+    });
+    template 'show' => {
+      mex  => $mex->examine ,
+      name => $mex->module };
+  }
+  catch {
+    if ($_ =~ /^Can't locate object method "meta" via package/ ) {
+      template 'show' => { no_mex =>1 , message => 'Not a Moose object' };
+    }
+    else { die $_ }
+  };
+};
+
+get '/_show' => sub {
+  template 'show' => { no_mex => 1 };
+};
+
+get '/' => sub { template 'index' => {} => { layout => 0 } };
+
+Dancer->dance;
+
+__END__
+=pod
+
+=head1 NAME
+
+mexi - Dancer-powered Moose examinations (interactive)
+
+=head1 VERSION
+
+version 0.1
+
+=head1 AUTHOR
+
+John SJ Anderson <genehack@genehack.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by John SJ Anderson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
