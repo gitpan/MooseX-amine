@@ -7,6 +7,7 @@
 use Dancer;
 use File::Find::Rule;
 use File::ShareDir qw/ dist_dir /;
+use File::Spec;
 use Hash::Merge qw/ merge /;
 use Modern::Perl;
 use MooseX::amine;
@@ -14,14 +15,14 @@ use Template;
 use Try::Tiny;
 
 my $dir    = dist_dir('MooseX-amine');
-my $public = "$dir/public";
-my $views  = "$dir/views";
+my $public = ( -e './share/public') ? File::Spec->rel2abs('./share/public') : "$dir/public";
+my $views  = ( -e './share/views' ) ? File::Spec->rel2abs('./share/views')  : "$dir/views";
 
 set access_log   => 1;
 set appdir       => $dir;
 set appname      => 'MooseX::amine';
 set charset      => "UTF-8";
-set log          => 'core';
+set log          => 'warning';
 set logger       => 'console';
 set public       => $public;
 set show_errors  => 1 ;
@@ -37,10 +38,12 @@ my %standard_mooosex_amine_args = (
 );
 
 get '/_list' => sub {
+  my $dir = File::Spec->rel2abs( './' );
   my @files = File::Find::Rule->file()->name('*.pm')->in('./');
 
   my %tree;
   foreach my $file ( @files  ) {
+    next if $file =~ /^\./;
     my @parts = split '/' , $file;
     my $hash = { pop @parts => $file };
     while ( my $part = pop @parts ) {
@@ -50,7 +53,7 @@ get '/_list' => sub {
     %tree = %{ merge( $hash , \%tree )  };
   }
 
-  template 'list' => { files => \@files  , tree => \%tree };
+  template 'list' => { files => \@files  , tree => \%tree , dir => $dir };
 };
 
 get '/_show/name/*' => sub {
@@ -107,7 +110,7 @@ mexi - An interactive web-based Dancer-powered inspection tool for Moose-based c
 
 =head1 VERSION
 
-version 0.2
+version 0.3
 
 =head1 SYNOPSIS
 

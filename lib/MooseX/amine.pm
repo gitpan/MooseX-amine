@@ -1,6 +1,6 @@
 package MooseX::amine;
 BEGIN {
-  $MooseX::amine::VERSION = '0.2';
+  $MooseX::amine::VERSION = '0.3';
 }
 BEGIN {
   $MooseX::amine::AUTHORITY = 'cpan:GENEHACK';
@@ -276,6 +276,7 @@ sub _dissect_role {
 
   my @names = split '\|' , $meta->name;
   foreach my $name ( @names ) {
+    next if $name =~ /Moose::Meta::Role::__ANON/;
     $self->_extract_sub_nodes( $name );
   }
 }
@@ -298,6 +299,9 @@ sub _extract_attribute_metainfo {
 
   $return->{meta}{constraint} = $meta_attr->type_constraint->name
     if ( $meta_attr->has_type_constraint );
+
+  $return->{meta}{traits} = $meta_attr->applied_traits
+    if ( $meta_attr->has_applied_traits );
 
   foreach ( qw/
                 is_weak_ref is_required is_lazy is_lazy_build should_coerce
@@ -328,20 +332,24 @@ sub _extract_sub_nodes {
 
   my $path = $name . '.pm';
   $path =~ s|::|/|g;
-  $path = $INC{$path};
+  if ( $path = $INC{$path} ){
+    try {
+      my $ppi = PPI::Document->new( $path )
+        or die "Can't load PPI for $path ($!)";
 
-  my $ppi = PPI::Document->new( $path )
-    or die "Can't load PPI for $path ($!)";
+      my $sub_nodes = $ppi->find(
+        sub{ $_[1]->isa( 'PPI::Statement::Sub' ) && $_[1]->name }
+      );
 
-  my $sub_nodes = $ppi->find(
-    sub{ $_[1]->isa( 'PPI::Statement::Sub' ) && $_[1]->name }
-  );
-
-  foreach my $sub_node ( @$sub_nodes ) {
-    my $name = $sub_node->name;
-    $self->_store_sub_node( $name => $sub_node->content );
+      foreach my $sub_node ( @$sub_nodes ) {
+        my $name = $sub_node->name;
+        $self->_store_sub_node( $name => $sub_node->content );
+      }
+    };
+    # FIXME should probably do something about errors here...
   }
 }
+
 
 # given a module name and a path to that module, dynamically load the
 # module. figures out the appropriate 'use lib' statement based on the path.
@@ -381,7 +389,7 @@ MooseX::amine - Examine Yr Moose
 
 =head1 VERSION
 
-version 0.2
+version 0.3
 
 =head1 SYNOPSIS
 
@@ -455,7 +463,13 @@ not be present.
 
 =head1 CREDITS
 
-Semi-inspired by L<MooseX::Documenter>.
+=over 4
+
+=item Semi-inspired by L<MooseX::Documenter>.
+
+=item Syntax highlighting Javascript/CSS stuff based on SHJS and largely stolen from search.cpan.org.
+
+=back
 
 =head1 AUTHOR
 

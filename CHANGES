@@ -1,8 +1,116 @@
 Revision History for MooseX-amine
 =================================
 
-0.2
+0.3
 ---
+
+commit cdc8c8474af7fa931d1e7856457bb101b2e27bfa
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Thu Apr 14 09:11:43 2011 -0400
+
+    New utility
+    
+    Lists delegation targets for native traits.
+    
+    (Idea from RJBS on #moose.)
+
+commit aaad9b66a17a96d4143fa0dec9694b92fa015c71
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Thu Apr 14 09:05:48 2011 -0400
+
+    Start tracking applied traits.
+
+commit 2b64268734bdd232cd9c136c61c2cb883d32ed4c
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:22:41 2011 -0400
+
+    skip things that start with a dot when building file list
+
+commit 541440f20d7626bfabd1e54bc174cc3e9fc7da32
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:22:13 2011 -0400
+
+    dial logging down to 'warning'
+
+commit 3a3abc7e862b90c2b85e278eaac7c0e44598d23a
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:21:57 2011 -0400
+
+    Handle being called with path name
+
+commit c8be01303f6f698a560bd8024bba7801feb13cc4
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:21:20 2011 -0400
+
+    sort tree
+
+commit 387d5d7f39909e957b3dee49b5a7049e024e890f
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:20:48 2011 -0400
+
+    Print out default attr when constrait is undef
+
+commit 82f6655059bea3c6ea037185e84801c4abb83f05
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Wed Apr 13 22:16:18 2011 -0400
+
+    add constaint-less attribute to tests
+
+commit 98fee40639f19a4dc860d0c6e62a0b357b41de6a
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Tue Apr 12 09:01:37 2011 -0400
+
+    Depend on Moose 2.000
+
+commit 8139bef026334c064ccee725b742076ee7c43e4b
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:26:50 2011 -0400
+
+    archive 0.1 release
+
+commit 2b767179a6b34df7a1744530e00f1e4419c539ed
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:26:11 2011 -0400
+
+    don't ignore releases
+
+commit 0c98425797cafbb91b4833ba874b182afc2cd95a
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:15:18 2011 -0400
+
+    try to make sub_node extract more robust
+    
+    probably slightly lossier too.
+
+commit a9f2ffa6f410b70de5f506cc37867861e5b47537
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:14:54 2011 -0400
+
+    don't try to extract sub nodes from ANON roles
+
+commit 2372ded983647d82944403f2ca235df423cfab07
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:08:29 2011 -0400
+
+    Display what directory we're browsing in
+
+commit 352394b51deda1052176d446a04204e206166642
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Mon Apr 11 00:08:13 2011 -0400
+
+    Prefer local relative share dir if we see it
+
+commit af41daa994c7d9f429ed20b799ed474fe23cd2d2
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Sun Apr 10 23:46:28 2011 -0400
+
+    more credit
+
+commit 7e9fd2f684b0d9a95429ca2600a80e181035c653
+Author: John SJ Anderson <genehack@genehack.org>
+Date:   Sun Apr 10 23:37:32 2011 -0400
+
+    note that we depend on Moose-1.99 stuff
 
 commit 7ff149ef12c4e8bc7d6050a5c1beef37488faa25
 Merge: 821ee61 a1fd21e

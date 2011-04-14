@@ -6,6 +6,7 @@ META.json
 META.yml
 Makefile.PL
 README
+bin/list_methods_for_native_trait
 bin/mex
 bin/mexi
 dist.ini

@@ -2,7 +2,7 @@ NAME
     MooseX::amine - Examine Yr Moose
 
 VERSION
-    version 0.2
+    version 0.3
 
 SYNOPSIS
         my $mex  = MooseX::amine->new( 'MooseX::amine' );
@@ -73,6 +73,8 @@ METHODS
 
 CREDITS
     Semi-inspired by MooseX::Documenter.
+    Syntax highlighting Javascript/CSS stuff based on SHJS and largely
+    stolen from search.cpan.org.
 
 AUTHOR
     John SJ Anderson <genehack@genehack.org>

@@ -19,13 +19,19 @@ eval 'use IO::Page';
 my $module = shift
   or die "Need a module to examine!";
 
-my $mex = MooseX::amine->new( $module );
+my $mex;
+if (-e $module ) {
+  $mex = MooseX::amine->new({ path => $module });
+}
+else {
+  $mex = MooseX::amine->new( $module );
+}
 
 my $data = $mex->examine;
 
 my $attribute_name_length = max_length( keys %{ $data->{attributes} });
 my $attribute_from_length = max_length( map { $data->{attributes}{$_}{from} } keys %{ $data->{attributes} } );
-my $attribute_isa_length  = max_length( map { $data->{attributes}{$_}{meta}{constraint} } keys %{ $data->{attributes} });
+my $attribute_isa_length  = max_length( map { $data->{attributes}{$_}{meta}{constraint} || 0 } keys %{ $data->{attributes} });
 
 my $attribute_fstring = "%-${attribute_name_length}s  %2s   %-${attribute_isa_length}s  %-${attribute_from_length}s\n";
 
@@ -40,7 +46,7 @@ foreach my $attribute ( sort keys %{ $data->{attributes} }) {
     ? 'rw' : 'ro';
 
   printf $attribute_fstring , $attribute , $rw ,
-    $data->{attributes}{$attribute}{meta}{constraint} , $data->{attributes}{$attribute}{from};
+    $data->{attributes}{$attribute}{meta}{constraint} || '' , $data->{attributes}{$attribute}{from};
 }
 
 my $method_name_length = max_length( keys %{ $data->{methods} } );
@@ -68,7 +74,7 @@ mex - A console-based inspector for Moose classes
 
 =head1 VERSION
 
-version 0.2
+version 0.3
 
 =head1 SYNOPSIS
 

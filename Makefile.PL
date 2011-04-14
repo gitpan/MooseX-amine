@@ -25,8 +25,9 @@ my %WriteMakefileArgs = (
   },
   'DISTNAME' => 'MooseX-amine',
   'EXE_FILES' => [
-    'bin/mexi',
-    'bin/mex'
+    'bin/list_methods_for_native_trait',
+    'bin/mex',
+    'bin/mexi'
   ],
   'LICENSE' => 'perl',
   'NAME' => 'MooseX::amine',
@@ -34,10 +35,12 @@ my %WriteMakefileArgs = (
     'Dancer' => '0',
     'File::Find::Rule' => '0',
     'File::ShareDir' => '0',
+    'File::Spec' => '0',
     'Hash::Merge' => '0',
     'List::Util' => '0',
     'Modern::Perl' => '0',
-    'Moose' => '0',
+    'Module::Info' => '0',
+    'Moose' => '2.000',
     'Moose::Meta::Class' => '0',
     'Moose::Meta::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
@@ -47,7 +50,7 @@ my %WriteMakefileArgs = (
     'Try::Tiny' => '0',
     'autodie' => '0'
   },
-  'VERSION' => '0.2',
+  'VERSION' => '0.3',
   'test' => {
     'TESTS' => 't/*.t'
   }
