@@ -6,9 +6,9 @@
 
 use Dancer;
 use File::Find::Rule;
-use File::ShareDir qw/ dist_dir /;
+use File::ShareDir    qw/ dist_dir /;
 use File::Spec;
-use Hash::Merge qw/ merge /;
+use Hash::Merge       qw/ merge /;
 use Modern::Perl;
 use MooseX::amine;
 use Template;
@@ -22,15 +22,14 @@ set access_log   => 1;
 set appdir       => $dir;
 set appname      => 'MooseX::amine';
 set charset      => "UTF-8";
+set layout       => 'main';
 set log          => 'warning';
 set logger       => 'console';
 set public       => $public;
 set show_errors  => 1 ;
-set template     => "template_toolkit";
+set template     => 'template_toolkit';
 set views        => $views;
 set warnings     => 1;
-
-layout 'main';
 
 my %standard_mooosex_amine_args = (
   include_private_attributes => 1 ,
@@ -38,21 +37,23 @@ my %standard_mooosex_amine_args = (
 );
 
 get '/_list' => sub {
-  my $dir = File::Spec->rel2abs( './' );
+  my $dir   = File::Spec->rel2abs( './' );
   my @files = File::Find::Rule->file()->name('*.pm')->in('./');
 
   my %tree;
-  foreach my $file ( @files  ) {
+  foreach my $file ( @files ) {
     next if $file =~ /^\./;
+
     my @parts = split '/' , $file;
-    my $hash = { pop @parts => $file };
+    my $hash  = { pop @parts => $file };
+
     while ( my $part = pop @parts ) {
       my $new_hash = { $part => $hash };
       $hash = $new_hash;
     }
+
     %tree = %{ merge( $hash , \%tree )  };
   }
-
   template 'list' => { files => \@files  , tree => \%tree , dir => $dir };
 };
 
@@ -70,7 +71,6 @@ get '/_show/name/*' => sub {
     };
   }
   catch { debug $name };
-
 };
 
 get qr{^/_show/(.*)} => sub {
@@ -102,7 +102,10 @@ get '/' => sub { template 'index' => {} => { layout => 0 } };
 Dancer->dance;
 
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -110,12 +113,13 @@ mexi - An interactive web-based Dancer-powered inspection tool for Moose-based c
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 
     # cd into a directory that has a Moose-based distribution
     mexi
+
     # can give a specific port with '--port xxxx' -- default is 3000
 
     # browse to http://localhost:3000 and check out your code
@@ -132,10 +136,9 @@ John SJ Anderson <genehack@genehack.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by John SJ Anderson.
+This software is copyright (c) 2014 by John SJ Anderson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

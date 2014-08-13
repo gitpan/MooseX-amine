@@ -14,7 +14,7 @@ $ENV{LESS} = 'RF';
 
 # don't catch any errors here; if this fails we just output stuff like
 # normal and nobody is the wiser.
-eval 'use IO::Page';
+#eval 'use IO::Page';
 
 my $module = shift
   or die "Need a module to examine!";
@@ -66,7 +66,10 @@ sub max_length {
 }
 
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -74,7 +77,7 @@ mex - A console-based inspector for Moose classes
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 
@@ -97,10 +100,9 @@ John SJ Anderson <genehack@genehack.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by John SJ Anderson.
+This software is copyright (c) 2014 by John SJ Anderson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,12 +1,6 @@
 package MooseX::amine;
-BEGIN {
-  $MooseX::amine::VERSION = '0.3';
-}
-BEGIN {
-  $MooseX::amine::AUTHORITY = 'cpan:GENEHACK';
-}
 # ABSTRACT: Examine Yr Moose
-
+$MooseX::amine::VERSION = '0.4';
 use Moose;
 use Moose::Meta::Class;
 use Moose::Meta::Role;
@@ -82,7 +76,7 @@ has '_metaobj' => (
 sub _build_metaobj {
   my $self = shift;
   return $self->{module}->meta
-    or die "Can't get meta object for module!" ;
+    || die "Can't get meta object for module!" ;
 }
 
 has '_methods' => (
@@ -208,12 +202,13 @@ sub _dissect_attribute {
   my $meta_attr = $meta->get_attribute( $attribute_name );
 
   my $return;
-  given ( ref $meta_attr ) {
-    when( 'Moose::Meta::Role::Attribute' ) {
-      $return = $meta_attr->original_role->name;
-      $meta_attr = $meta_attr->attribute_for_class();
-    }
-    default { $return = $meta_attr->associated_class->name }
+  my $ref = ref $meta_attr;
+  if ( $ref eq 'Moose::Meta::Role::Attribute' ) {
+    $return = $meta_attr->original_role->name;
+    $meta_attr = $meta_attr->attribute_for_class();
+  }
+  else {
+    $return = $meta_attr->associated_class->name
   }
 
   my $extracted_attribute = $self->_extract_attribute_metainfo( $meta_attr );
@@ -260,7 +255,9 @@ sub _dissect_method {
 
   unless ( $self->include_standard_methods ) {
     my @STOCK = qw/ DESTROY meta new /;
-    return if $method_name ~~ @STOCK;
+    foreach ( @STOCK ) {
+      return if $method_name eq $_;
+    }
   }
 
   my $extracted_method =  $self->_extract_method_metainfo( $meta_method );
@@ -379,9 +376,11 @@ sub _load_module_from_path {
 #__PACKAGE__->meta->make_immutable;
 1;
 
-
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -389,7 +388,7 @@ MooseX::amine - Examine Yr Moose
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 
@@ -477,10 +476,9 @@ John SJ Anderson <genehack@genehack.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by John SJ Anderson.
+This software is copyright (c) 2014 by John SJ Anderson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
